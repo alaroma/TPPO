@@ -21,8 +21,10 @@
         completions."
     </string>
     <string name="title_activity_main2">Мои метки</string>
-    <string name="title_activity_settings">Settings</string>
-
+    <string name="title_activity_settings">Настройки</string>
+    <string name="create_and_choice_photo"> Создайте или выберите фото: </string>
+    <string name="name_of_label">Название метки </string>
+    <string name="create_label">Создание метки </string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
