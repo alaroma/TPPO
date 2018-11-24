@@ -16,19 +16,18 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
-       // super.onCreate(savedInstanceState);
         setupActionBar();
-        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        fab2.setOnClickListener(new View.OnClickListener() {
+
+        FloatingActionButton fab_plus =  findViewById(R.id.fab2);
+        fab_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intObj = new Intent(Main2Activity.this, CreateLabel.class);
+                startActivity(intObj);
             }
         });
     }
+
 
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
