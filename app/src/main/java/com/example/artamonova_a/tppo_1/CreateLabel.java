@@ -3,8 +3,11 @@ package com.example.artamonova_a.tppo_1;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +17,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class CreateLabel extends AppCompatActivity {
     private ImageView imageView;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +33,7 @@ public class CreateLabel extends AppCompatActivity {
         setContentView(R.layout.activity_create_label);
         imageView = findViewById(R.id.imageView2);
 
+        textView = findViewById(R.id.textView3);
         ImageButton camera = findViewById(R.id.imageButton);
         camera.setOnClickListener(new OnClickListener() {
 
@@ -47,6 +55,7 @@ public class CreateLabel extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -59,6 +68,7 @@ public class CreateLabel extends AppCompatActivity {
                 case 1:
                     Uri selectedImage2 = imageReturnedIntent.getData();
                     imageView.setImageURI(selectedImage2);
+                    showExif(selectedImage2);
                     break;
             }
         }
@@ -82,6 +92,29 @@ public class CreateLabel extends AppCompatActivity {
     }
 
 
+    String str;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void showExif(Uri photoUri){
+        if(photoUri != null){
 
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(photoUri);
+                ExifInterface exifInterface = new ExifInterface(inputStream);
+
+
+                str = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                textView.setText(str);
+                inputStream.close();
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+        }
+    }
 
 }
