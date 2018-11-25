@@ -25,6 +25,7 @@
     <string name="create_and_choice_photo"> Создайте или выберите фото: </string>
     <string name="name_of_label">Название метки </string>
     <string name="create_label">Создание метки </string>
+    <string name="date_of_label">Дата добвления: </string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
