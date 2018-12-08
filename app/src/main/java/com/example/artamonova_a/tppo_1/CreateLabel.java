@@ -22,6 +22,9 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CreateLabel extends AppCompatActivity {
     private ImageView imageView;
@@ -64,6 +67,7 @@ public class CreateLabel extends AppCompatActivity {
                 case 0:
                     Bitmap selectedImage = (Bitmap) imageReturnedIntent.getExtras().get("data");
                     imageView.setImageBitmap(selectedImage);
+                    showExifcam();
                     break;
                 case 1:
                     Uri selectedImage2 = imageReturnedIntent.getData();
@@ -90,31 +94,47 @@ public class CreateLabel extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-    String str;
+    //SimpleDateFormat convertTime = new SimpleDateFormat();
+  //  Date dateNow = null;
+    String str, str2;
+    SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy, HH:mm");
+   //SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy, HH:mm");
     @RequiresApi(api = Build.VERSION_CODES.N)
     void showExif(Uri photoUri){
         if(photoUri != null){
-
             try {
                 InputStream inputStream = getContentResolver().openInputStream(photoUri);
                 ExifInterface exifInterface = new ExifInterface(inputStream);
-
-
+              //  datePh = ft.parse(str);
+             //  ft.format(dateNow);
+               // str2 = ft.format(dateNow);
                 str = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+             //   dateNow = ft.parse(str);
+
+               // str2 = convertTime.format(dateNow);
                 textView.setText(str);
                 inputStream.close();
-
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
 
-            }
+            } //catch (ParseException e) {
+                //e.printStackTrace();
+            //}
 
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void showExifcam(){
+        Date dateNow = new Date();
+
+        textView.setText(ft.format(dateNow));
+    }
+
+
+
 
 }
